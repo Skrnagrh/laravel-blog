@@ -1,11 +1,11 @@
 @extends('dashboard.layouts.main')
 
-@section('container')
+@section('content')
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Edit Post</h1>
     </div>
-    
+
     <div class="col-lg-8">
         <form method="post" action="/dashboard/posts/{{ $post->slug }}" class="mb-5" enctype="multipart/form-data">
           @method('put')
@@ -36,8 +36,8 @@
               <label for="category" class="form-label">Category</label>
               <select class="form-select" name="category_id">
                 @foreach ($categories as $category)
-                    @if (old('category_id', $post->category_id) == $category->id)    
-                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>   
+                    @if (old('category_id', $post->category_id) == $category->id)
+                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
                     @else
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endif
@@ -50,7 +50,7 @@
               @if ($post->image)
                 <img src="{{ asset('storage/' . $post->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
               @else
-                <img class="img-preview img-fluid mb-3 col-sm-5">    
+                <img class="img-preview img-fluid mb-3 col-sm-5">
               @endif
               <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" onchange="previewImage()">
               @error('image')

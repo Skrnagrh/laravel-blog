@@ -1,4 +1,4 @@
- <!-- ======= Footer ======= -->
+ {{-- <!-- ======= Footer ======= -->
  <footer id="footer" class="footer mt-5 fixed-bottom">
 
     <div class="footer-legal">
@@ -15,11 +15,13 @@
               <a href="https://linkedin.com/in/sukron" class="linkedin"><i class="bi bi-linkedin"></i></a>
               <a href="https://instagram.com/skrnagrh" class="instagram"><i class="bi bi-instagram"></i></a>
               <a href="https://pinterest.com/skrnagrh" class="pinterest"><i class="bi bi-pinterest"></i></a>
-              {{-- <a href="https://github.com/skrnagrh" class="facebook"><i class="bi bi-sololearn"></i></a> --}}
             </div>
           </div>
         </div>
       </div>
     </div>
 
-  </footer>
+  </footer> --}}
+
+
+

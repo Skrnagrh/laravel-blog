@@ -7,11 +7,11 @@
                         <i class="fas fa-bolt text-white"></i>
                     </span>
                     <div class="pe-2 me-3 border-end border-white d-flex align-items-center">
-                        <p class="mb-0 text-white fs-6 fw-normal">Trending</p>
+                        <p class="mb-0 text-white fs-6 fw-normal">Latest</p>
                     </div>
                     <div class="overflow-hidden" style="width: 735px;">
                         <div id="note" class="ps-2">
-                            <img src="img/features-fashion.jpg"
+                            <img src="/assets/home/img/features-fashion.jpg"
                                 class="img-fluid rounded-circle border border-3 border-primary me-2"
                                 style="width: 30px; height: 30px;" alt="">
                             <a href="#">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="top-link flex-lg-wrap">
+                {{-- <div class="top-link flex-lg-wrap">
                     <i class="fas fa-calendar-alt text-white border-end border-secondary pe-2 me-2"> <span
                             class="text-body">Tuesday, Sep 12, 2024</span></i>
                     <div class="d-flex icon">
@@ -34,7 +34,7 @@
                         <a href="" class="me-2"><i class="fab fa-skype text-body link-hover"></i></a>
                         <a href="" class=""><i class="fab fa-pinterest-p text-body link-hover"></i></a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

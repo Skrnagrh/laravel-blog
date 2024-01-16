@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Dashboard\DashboardCategoryController;
+use App\Http\Controllers\Dashboard\DashboardController as DashboardDashboardController;
+use App\Http\Controllers\Dashboard\DashboardPostController as DashboardDashboardPostController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\Home\CategoryController;
@@ -70,15 +73,35 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 // Halaman Dashboard Admin
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-})->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return view('dashboard.index');
+// })->middleware('auth');
+// Route::get('/dashboard/categories/checkSlug', [DashboardPostController::class, 'checkSlugCategory'])->middleware('auth');
 
 // Halaman Untuk Menambahkan Postingan
-Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
-Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+// Route::resource('/dashboard', DashboardDashboardController::class)->middleware('auth');
+// Route::get('/dashboard/posts/checkSlug', [DashboardDashboardPostController::class, 'checkSlug'])->middleware('auth');
+// Route::resource('/dashboard/posts', DashboardDashboardPostController::class)->middleware('auth');
 
-// Halaman Untuk Menambahkan Category hanya admin yang bisa
-// Route::get('/dashboard/categories/checkSlug', [DashboardPostController::class, 'checkSlugCategory'])->middleware('auth');
-Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
-Route::get('/dashboard/categories/checkSlug', [AdminCategoryController::class, 'checkSlug'])->middleware('auth');
+// // Halaman Untuk Menambahkan Category hanya admin yang bisa
+// Route::resource('/dashboard/categories', DashboardCategoryController::class)->except('show')->middleware('admin');
+// Route::get('/dashboard/categories/checkSlug', [DashboardCategoryController::class, 'checkSlug'])->middleware('auth');
+
+// Group Middleware "auth"
+Route::middleware(['auth'])->group(function () {
+    // Halaman Untuk Menambahkan Postingan
+    Route::get('/dashboard', [DashboardDashboardController::class, 'index']);
+    Route::get('/dashboard/posts/checkSlug', [DashboardDashboardPostController::class, 'checkSlug']);
+    Route::resource('/dashboard/posts', DashboardDashboardPostController::class);
+
+    // Halaman Untuk Menambahkan Category hanya admin yang bisa
+    Route::resource('/dashboard/categories', DashboardCategoryController::class)->except('show');
+    Route::get('/dashboard/categories/checkSlug', [DashboardCategoryController::class, 'checkSlug']);
+});
+
+// Group Middleware "admin"
+Route::middleware(['admin'])->group(function () {
+    // Halaman Untuk Menambahkan Category hanya admin yang bisa
+    Route::resource('/dashboard/categories', DashboardCategoryController::class)->except('show');
+    Route::get('/dashboard/categories/checkSlug', [DashboardCategoryController::class, 'checkSlug']);
+});

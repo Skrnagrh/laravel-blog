@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 
-@section('container')
+@section('content')
 
   <div class="container">
       <div class="row my-3">
@@ -15,7 +15,7 @@
                   <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span> Delete</button>
                 </form>
 
-                @if ($post->image)   
+                @if ($post->image)
                   <div style="max-height: 350px; overflow: hidden;" class="mt-3">
                       <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid" alt="{{ $post->category->name }}">
                   </div>
@@ -30,5 +30,5 @@
           </div>
       </div>
   </div>
-    
+
 @endsection

@@ -1,11 +1,11 @@
 @extends('dashboard.layouts.main')
 
-@section('container')
+@section('content')
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Create New Post</h1>
     </div>
-    
+
     <div class="col-lg-8">
         <form method="post" action="/dashboard/posts" class="mb-5" enctype="multipart/form-data">
             @csrf
@@ -14,7 +14,7 @@
               <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" required autofocus value="{{ old('title') }}">
               @error('title')
                   <div class="invalid-feedback">
-                    {{ $message }} 
+                    {{ $message }}
                   </div>
               @enderror
             </div>
@@ -31,8 +31,8 @@
               <label for="category" class="form-label">Category</label>
               <select class="form-select" name="category_id">
                 @foreach ($categories as $category)
-                    @if (old('category_id') == $category->id)    
-                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>   
+                    @if (old('category_id') == $category->id)
+                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
                     @else
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endif
