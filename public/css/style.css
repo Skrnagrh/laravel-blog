@@ -1,0 +1,15 @@
+
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+  
+  h1{
+    text-transform: uppercase;
+  }
+
+  .form-signin{
+    box-shadow: rgba(0,0,0,1,);
+  }
+  .dropdown{
+    background-color: green;
+  }
