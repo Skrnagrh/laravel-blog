@@ -125,7 +125,7 @@ class DashboardCategoryController extends Controller
     // /buat slug otomatis
     public function checkSlug(Request $request)
     {
-        $slug = SlugService::createSlug(Category::class, 'slug', $request->title);
+        $slug = SlugService::createSlug(Category::class, 'slug', $request->name);
         return response()->json(['slug' => $slug]);
     }
 }

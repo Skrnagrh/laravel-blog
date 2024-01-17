@@ -9,6 +9,8 @@ use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Database\Seeders\PostsSeeder;
 use Database\Seeders\UsersSeeder;
+use Database\Seeders\RepliesSeeder;
+use Database\Seeders\CommentsSeeder;
 use Database\Seeders\CategoriesSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +27,8 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             CategoriesSeeder::class,
             PostsSeeder::class,
+            CommentsSeeder::class,
+            RepliesSeeder::class,
         ]);
 
         // \App\Models\User::factory()->create([

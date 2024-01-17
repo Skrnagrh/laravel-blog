@@ -66,7 +66,18 @@
     <!-- Template Javascript -->
     <script src="/assets/home/js/main.js"></script>
 
-
+    <script>
+        // Function to copy the current page URL to the clipboard
+        function copyLink() {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            alert("Link copied to clipboard!");
+        }
+    </script>
 </body>
 
 </html>

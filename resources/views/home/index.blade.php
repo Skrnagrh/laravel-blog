@@ -15,9 +15,6 @@
                                 <img src="/assets/home/img/features-sports-1.jpg"
                                     class="img-zoomin img-fluid rounded-circle w-100">
                             </div>
-                            {{-- <span
-                                class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute"
-                                style="top: 10%; right: -10px;">3</span> --}}
                         </div>
                     </div>
                     <div class="col-8">
@@ -33,14 +30,6 @@
                                     href="{{ route('login') }}">di sini</a>.</p>
                             @endauth
                         </div>
-
-                        {{-- <div class="features-content d-flex flex-column">
-                            <a href="#" class="h6">
-                                Selamat Datang
-                            </a>
-                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{
-                                Auth()->user()->name }}</small>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -150,13 +139,14 @@
                     </div>
                 </div>
                 <div class="border-bottom py-3">
-                    <a href="/posts/{{ $posts[0]->slug}}" class="display-4 text-dark mb-0 link-hover">{{
+                    <a href="/detail-post/{{ $posts[0]->slug}}" class="display-4 text-dark mb-0 link-hover">{{
                         $posts[0]->title }}</a>
                 </div>
                 <p>
-                    <small class="text-muted text-light">By. <a href="/posts?author={{ $posts[0]->author->username }} "
-                            class="text-decoration-none">{{ $posts[0]->author->name }}</a> in <a
-                            href="/posts?category={{ $posts[0]->category->slug }}" class="text-decoration-none">{{
+                    <small class="text-muted text-light">By. <a
+                            href="/kategori?author={{ $posts[0]->author->username }} " class="text-decoration-none">{{
+                            $posts[0]->author->name }}</a> in <a
+                            href="/kategori?category={{ $posts[0]->category->slug }}" class="text-decoration-none">{{
                             $posts[0]->category->name }}</a> {{ $posts[0]->created_at->diffForHumans() }}
                     </small>
                 </p>
@@ -183,11 +173,11 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex flex-column">
-                                <a href="/posts/{{ $post->slug}}" class="h3">{{ $post->title }}</a>
+                                <a href="/detail-post/{{ $post->slug}}" class="h3">{{ $post->title }}</a>
                                 <small class="text-muted text-light">By. <a
-                                        href="/posts?author={{ $post->author->username }} "
+                                        href="/kategori?author={{ $post->author->username }} "
                                         class="text-decoration-none">{{ $post->author->name }}</a> in <a
-                                        href="/posts?category={{ $post->category->slug }}"
+                                        href="/kategori?category={{ $post->category->slug }}"
                                         class="text-decoration-none">{{
                                         $post->category->name }}</a>
                                 </small>
@@ -218,11 +208,11 @@
                         </div>
                         <div class="col-12">
                             <div class="d-flex flex-column">
-                                <a href="/posts/{{ $post->slug}}" class="h3">{{ $post->title }}</a>
+                                <a href="/detail-post/{{ $post->slug}}" class="h3">{{ $post->title }}</a>
                                 <small class="text-muted text-light">By. <a
-                                        href="/posts?author={{ $post->author->username }} "
+                                        href="/kategori?author={{ $post->author->username }} "
                                         class="text-decoration-none">{{ $post->author->name }}</a> in <a
-                                        href="/posts?category={{ $post->category->slug }}"
+                                        href="/kategori?category={{ $post->category->slug }}"
                                         class="text-decoration-none">{{
                                         $post->category->name }}</a>
                                 </small>
@@ -251,14 +241,47 @@
                                 </div>
                                 <div class="col-7">
                                     <div class="features-content d-flex flex-column">
-                                        <a href="/posts/{{ $post->slug}}" class="h6">{{ $post->title }}</a>
+                                        {{-- <a href="/detail-post/{{ $post->slug}}" class="h6">{{ $post->title }}</a>
+                                        --}}
+                                        <a href="/detail-post/{{ $post->slug }}" class="h6">
+                                            {{ (str_word_count($post->title) <= 3) ? $post->title : implode(' ',
+                                                array_slice(str_word_count($post->title, 2), 0, 3)) . ' ...' }}
+                                        </a>
+
+
                                         <small class="text-muted">By. <a
-                                                href="/posts?author={{ $post->author->username }} "
+                                                href="/kategori?author={{ $post->author->username }} "
                                                 class="text-decoration-none">{{ $post->author->name }}</a>
+                                                in <a
+                                                href="/kategori?category={{ $post->category->slug }}"
+                                                class="text-decoration-none">{{
+                                                $post->category->name }}</a>
                                         </small>
-                                        <small><i class="fa fa-clock"> {{ $post->created_at->diffForHumans() }}</i>
+                                        {{-- <small><i class="bi bi-bookmark"> <a
+                                                    href="/kategori?category={{ $post->category->slug }}"
+                                                    class="text-decoration-none">{{
+                                                    $post->category->name }}</a></i></small> --}}
+                                        {{-- <small><i class="bi bi-alarm"> {{ $post->created_at->diffForHumans() }}</i>
+                                        </small> --}}
+                                        <small>
+                                            <i class="bi bi-alarm">
+                                                <?php
+                                                    setlocale(LC_TIME, 'id_ID');
+                                                    $created_at = \Carbon\Carbon::parse($post->created_at);
+                                                    $now = now();
+                                                    $diff = $now->diff($created_at);
+
+                                                    if ($diff->days >= 1) {
+                                                        echo $created_at->formatLocalized('%A, %e %B %Y');
+                                                    } else {
+                                                        echo $created_at->diffForHumans();
+                                                    }
+                                                ?>
+                                            </i>
                                         </small>
-                                        <small><i class="fa fa-eye"> 3.5k Views</i></small>
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -344,226 +367,3 @@
 @endif
 
 @endsection
-
-{{-- <div class="border-bottom mb-4">
-    <h2 class="my-4">{{ $category->name }}</h2>
-</div>
-<div class="whats-carousel owl-carousel">
-    <div class="latest-news-item">
-        <div class="bg-light rounded">
-            <div class="rounded-top overflow-hidden">
-                <img src="https://source.unsplash.com/500x400?{{ $category->name }}"" class=" img-zoomin img-fluid
-                    rounded-top w-100" alt="">
-            </div>
-            <div class="d-flex flex-column p-4">
-                <a href="#" class="h4">There are many variations of passages of Lorem Ipsum
-                    available,</a>
-                <div class="d-flex justify-content-between">
-                    <a href="#" class="small text-body link-hover">by Willium Smith</a>
-                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                        Dec 9, 2024</small>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-{{-- <div class="col-lg-4 col-xl-3">
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="p-3 rounded border">
-                <h4 class="mb-4">Stay Connected</h4>
-                <div class="row g-4">
-                    <div class="col-12">
-                        <a href="#" class="w-100 rounded btn btn-primary d-flex align-items-center p-3 mb-2">
-                            <i class="fab fa-facebook-f btn btn-light btn-square rounded-circle me-3"></i>
-                            <span class="text-white">13,977 Fans</span>
-                        </a>
-                        <a href="#" class="w-100 rounded btn btn-danger d-flex align-items-center p-3 mb-2">
-                            <i class="fab fa-twitter btn btn-light btn-square rounded-circle me-3"></i>
-                            <span class="text-white">21,798 Follower</span>
-                        </a>
-                        <a href="#" class="w-100 rounded btn btn-warning d-flex align-items-center p-3 mb-2">
-                            <i class="fab fa-youtube btn btn-light btn-square rounded-circle me-3"></i>
-                            <span class="text-white">7,999 Subscriber</span>
-                        </a>
-                        <a href="#" class="w-100 rounded btn btn-dark d-flex align-items-center p-3 mb-2">
-                            <i class="fab fa-instagram btn btn-light btn-square rounded-circle me-3"></i>
-                            <span class="text-white">19,764 Follower</span>
-                        </a>
-                        <a href="#" class="w-100 rounded btn btn-secondary d-flex align-items-center p-3 mb-2">
-                            <i class="bi-cloud btn btn-light btn-square rounded-circle me-3"></i>
-                            <span class="text-white">31,999 Subscriber</span>
-                        </a>
-                        <a href="#" class="w-100 rounded btn btn-warning d-flex align-items-center p-3 mb-4">
-                            <i class="fab fa-dribbble btn btn-light btn-square rounded-circle me-3"></i>
-                            <span class="text-white">37,999 Subscriber</span>
-                        </a>
-                    </div>
-                </div>
-                <h4 class="my-4">Popular News</h4>
-                <div class="row g-4">
-                    <div class="col-12">
-                        <div class="row g-4 align-items-center features-item">
-                            <div class="col-4">
-                                <div class="rounded-circle position-relative">
-                                    <div class="overflow-hidden rounded-circle">
-                                        <img src="img/features-sports-1.jpg"
-                                            class="img-zoomin img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <span
-                                        class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute"
-                                        style="top: 10%; right: -10px;">3</span>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="features-content d-flex flex-column">
-                                    <p class="text-uppercase mb-2">Sports</p>
-                                    <a href="#" class="h6">
-                                        Get the best speak market, news.
-                                    </a>
-                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> December
-                                        9,
-                                        2024</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="row g-4 align-items-center features-item">
-                            <div class="col-4">
-                                <div class="rounded-circle position-relative">
-                                    <div class="overflow-hidden rounded-circle">
-                                        <img src="img/features-technology.jpg"
-                                            class="img-zoomin img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <span
-                                        class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute"
-                                        style="top: 10%; right: -10px;">3</span>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="features-content d-flex flex-column">
-                                    <p class="text-uppercase mb-2">Technology</p>
-                                    <a href="#" class="h6">
-                                        Get the best speak market, news.
-                                    </a>
-                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> December
-                                        9,
-                                        2024</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="row g-4 align-items-center features-item">
-                            <div class="col-4">
-                                <div class="rounded-circle position-relative">
-                                    <div class="overflow-hidden rounded-circle">
-                                        <img src="img/features-fashion.jpg"
-                                            class="img-zoomin img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <span
-                                        class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute"
-                                        style="top: 10%; right: -10px;">3</span>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="features-content d-flex flex-column">
-                                    <p class="text-uppercase mb-2">Fashion</p>
-                                    <a href="#" class="h6">
-                                        Get the best speak market, news.
-                                    </a>
-                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> December
-                                        9,
-                                        2024</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="row g-4 align-items-center features-item">
-                            <div class="col-4">
-                                <div class="rounded-circle position-relative">
-                                    <div class="overflow-hidden rounded-circle">
-                                        <img src="img/features-life-style.jpg"
-                                            class="img-zoomin img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <span
-                                        class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute"
-                                        style="top: 10%; right: -10px;">3</span>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="features-content d-flex flex-column">
-                                    <p class="text-uppercase mb-2">Life Style</p>
-                                    <a href="#" class="h6">
-                                        Get the best speak market, news.
-                                    </a>
-                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> December
-                                        9,
-                                        2024</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <a href="#"
-                            class="link-hover btn border border-primary rounded-pill text-dark w-100 py-3 mb-4">View
-                            More</a>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="position-relative banner-2">
-                            <img src="/assets/home/img/banner-2.jpg" class="img-fluid w-100 rounded" alt="">
-                            <div class="text-center banner-content-2">
-                                <h6 class="mb-2">The Most Populer</h6>
-                                <p class="text-white mb-2">News & Magazine WP Theme</p>
-                                <a href="#" class="btn btn-primary text-white px-4">Shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-{{-- <div class="mt-5 lifestyle">
-    <div class="border-bottom mb-4">
-        <h1 class="mb-4">Life Style</h1>
-    </div>
-    <div class="row g-4">
-        <div class="col-lg-6">
-            <div class="lifestyle-item rounded">
-                <img src="/assets/home/img/lifestyle-1.jpg" class="img-fluid w-100 rounded" alt="">
-                <div class="lifestyle-content">
-                    <div class="mt-auto">
-                        <a href="#" class="h4 text-white link-hover">There are many variations
-                            of passages of Lorem Ipsum available,</a>
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="#" class="small text-white link-hover">By Willium Smith</a>
-                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9,
-                                2024</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="lifestyle-item rounded">
-                <img src="/assets/home/img/lifestyle-2.jpg" class="img-fluid w-100 rounded" alt="">
-                <div class="lifestyle-content">
-                    <div class="mt-auto">
-                        <a href="#" class="h4 text-white link-hover">There are many variations
-                            of passages of Lorem Ipsum available,</a>
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="#" class="small text-white link-hover">By Willium Smith</a>
-                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9,
-                                2024</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}

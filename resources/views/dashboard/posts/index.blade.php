@@ -23,8 +23,12 @@
         <div class="d-flex justify-content-between mx-2">
             <h5 class="mt-3"><i class="bi bi-table"></i> Data Postingan</h5>
             <div class="d-flex align-items-center justify-content-end">
-                <a href="/dashboard/posts/create"><button class="btn btn-success btn-sm mt-2 me-2">Tambah
-                        Postingan <i class="bi bi-plus-circle"></i></button></a>
+                {{-- <a href="/dashboard/posts/create"> --}}
+                    <button class="btn btn-success btn-sm mt-2 me-2" data-bs-toggle="modal"
+                        data-bs-target="#createModal">Tambah
+                        Postingan <i class="bi bi-plus-circle"></i></button>
+                    @include('dashboard.posts.create')
+                    {{-- </a> --}}
             </div>
         </div>
         <hr class="dropdown-divider">
@@ -53,51 +57,22 @@
                                     class="btn btn-sm btn-success me-3 text-light">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="/dashboard/posts/{{ $post->slug }}/edit"
+                                {{-- <a href="/dashboard/posts/{{ $post->slug }}/edit"
                                     class="btn btn-sm btn-warning me-3 text-light">
                                     <i class="bi bi-pencil-square"></i>
-                                </a>
+                                </a> --}}
 
-
-                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confirmationModal{{ $post->slug }}">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-
-                                    <!-- Modal Konfirmasi -->
-                                    <div>
-                                        <div class="modal fade" id="confirmationModal{{ $post->slug }}" tabindex="-1"
-                                            aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="confirmationModalLabel">Hapus
-                                                            Kriteria
-                                                        </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Apakah Anda yakin ingin menghapus kriteria ?
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary btn-sm"
-                                                            data-bs-dismiss="modal"><i class="bi bi-x-lg"></i>
-                                                            Batal</button>
-                                                            <form action="/dashboard/posts/{{ $post->slug }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="bi bi-trash"></i> Ya, Hapus</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-warning me-3 text-light"
+                                    data-bs-toggle="modal" data-bs-target="#EditModal{{ $post->slug }}">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#confirmationModal{{ $post->slug }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </div>
+
                             {{-- <form action="" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
@@ -106,12 +81,42 @@
                             </form> --}}
                         </td>
                     </tr>
+                    @include('dashboard.posts.edit')
+                    @include('dashboard.posts.delete')
                     @endforeach
-
                 </tbody>
             </table>
         </div>
 
     </div>
 </section>
+
+
+<script>
+    const title = document.querySelector('#title');
+        const slug = document.querySelector('#slug');
+
+        title.addEventListener('change', function(){
+            fetch('/dashboard/posts/checkSlug?title=' + title.value)
+            .then(response => response.json())
+            .then(data => slug.value = data.slug)
+        });
+        document.addEventListener('trix-file-accept', function(e){
+            e.preventDefault();
+        })
+
+        function previewImage(){
+          const image = document.querySelector('#image');
+          const imgPreview = document.querySelector('.img-preview');
+
+          imgPreview.style.display = 'block';
+
+          const oFReader = new FileReader();
+          oFReader.readAsDataURL(image.files[0]);
+
+          oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result;
+          }
+        }
+</script>
 @endsection

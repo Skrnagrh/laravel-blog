@@ -17,11 +17,13 @@ class DashboardPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
 
         return view('dashboard.posts.index', [
-            'posts' => Post::where('user_id', auth()->user()->id)->get()
+            'posts' => Post::where('user_id', auth()->user()->id)->get(),
+            'categories' => Category::all(),
+            'post' => $post,
         ]);
     }
 
@@ -75,7 +77,8 @@ class DashboardPostController extends Controller
     public function show(Post $post)
     {
         return view('dashboard.posts.show', [
-            'post' => $post
+            'post' => $post,
+            'categories' => Category::all(),
         ]);
     }
 

@@ -90,6 +90,8 @@
     <!-- Template Main CSS File -->
     <link href="/assets/dashboard/css/style.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="stylesheet" type="text/css" href="/assets/dashboard/css/trix.css">
     <script type="text/javascript" src="/assets/dashboard/js/trix.js"></script>
     <style>

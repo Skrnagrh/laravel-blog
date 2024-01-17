@@ -10,12 +10,12 @@ class Category extends Model
 {
     use HasFactory;
     use Sluggable;
- 
+
     // protected $fillable = ['name', 'slug'];
     protected $guarded = ['id'];
     public function categories()
     {
-        return $this->hasMany(Category::class);   
+        return $this->hasMany(Category::class);
     }
 
     public function getRouteKeyName()

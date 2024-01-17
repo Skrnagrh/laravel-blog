@@ -64,19 +64,24 @@
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="/dashboard/posts">
-                        <i class="bi bi-circle"></i><span>posts</span>
+                        <i class="bi bi-circle"></i><span>Postingan</span>
                     </a>
                 </li>
                 @can('admin')
                 <li>
                     <a href="/dashboard/categories">
-                        <i class="bi bi-circle"></i><span>Category</span>
+                        <i class="bi bi-circle"></i><span>Kategori</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/all-post">
+                        <i class="bi bi-circle"></i><span>Semua Postingan</span>
                     </a>
                 </li>
                 @endcan
             </ul>
         </li>
-        
+
     </ul>
 
 </aside>
