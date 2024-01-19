@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Comment;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
@@ -62,5 +64,10 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

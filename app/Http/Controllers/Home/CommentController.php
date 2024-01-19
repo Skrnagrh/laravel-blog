@@ -10,6 +10,9 @@ class CommentController extends Controller
 {
     public function store(Request $request, $postId)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to submit a comment.');
+        }
         // Validate the incoming request data
         $request->validate([
             'textarea' => 'required|string|max:255', // Adjust the validation rules as needed

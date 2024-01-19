@@ -119,4 +119,25 @@
           }
         }
 </script>
+
+{{-- <script>
+    document.getElementById('profileImage').addEventListener('change', function () {
+        const input = this;
+        const previewImage = document.getElementById('previewImage');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+
+    document.getElementById('removeProfileImage').addEventListener('click', function (e) {
+        e.preventDefault();
+        const profileImage = document.getElementById('profileImage');
+        profileImage.value = ''; // Clear the input
+        document.getElementById('previewImage').src = '{{ asset('path/to/your/default-image.jpg') }}';
+    });
+</script> --}}
 @endsection

@@ -3,17 +3,16 @@
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ReplyController;
 use App\Http\Controllers\Home\CommentController;
-use App\Http\Controllers\AdminCategoryController;
-use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\Home\CategoryController;
+use App\Http\Controllers\Dashboard\CommentPostController;
+use App\Http\Controllers\Dashboard\DashboardPostController;
 use App\Http\Controllers\Dashboard\DashboardAllpostController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
+use App\Http\Controllers\Dashboard\DashboardCProfileController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Dashboard\DashboardController as DashboardDashboardController;
 use App\Http\Controllers\Dashboard\DashboardPostController as DashboardDashboardPostController;
@@ -27,13 +26,7 @@ use App\Http\Controllers\Dashboard\DashboardPostController as DashboardDashboard
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Halaman Index
-// Route::get('/', function () {
-//     return view('home.index', [
-//         "title" => "Home",
-//         "active" => "home",
-//     ]);
-// });
+
 
 // Halaman About
 Route::get('/about', function () {
@@ -75,31 +68,21 @@ Route::post('/logout', [AuthLoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-// Halaman Dashboard Admin
-// Route::get('/dashboard', function () {
-//     return view('dashboard.index');
-// })->middleware('auth');
-// Route::get('/dashboard/categories/checkSlug', [DashboardPostController::class, 'checkSlugCategory'])->middleware('auth');
-
-// Halaman Untuk Menambahkan Postingan
-// Route::resource('/dashboard', DashboardDashboardController::class)->middleware('auth');
-// Route::get('/dashboard/posts/checkSlug', [DashboardDashboardPostController::class, 'checkSlug'])->middleware('auth');
-// Route::resource('/dashboard/posts', DashboardDashboardPostController::class)->middleware('auth');
-
-// // Halaman Untuk Menambahkan Category hanya admin yang bisa
-// Route::resource('/dashboard/categories', DashboardCategoryController::class)->except('show')->middleware('admin');
-// Route::get('/dashboard/categories/checkSlug', [DashboardCategoryController::class, 'checkSlug'])->middleware('auth');
-
 // Group Middleware "auth"
 Route::middleware(['auth'])->group(function () {
     // Halaman Untuk Menambahkan Postingan
     Route::get('/dashboard', [DashboardDashboardController::class, 'index']);
-    Route::resource('/dashboard/posts', DashboardDashboardPostController::class);
     Route::get('/dashboard/posts/checkSlug', [DashboardDashboardPostController::class, 'checkSlug']);
+    Route::resource('/dashboard/posts', DashboardDashboardPostController::class);
+    Route::resource('/dashboard/comment', CommentPostController::class);
 
     // Halaman Untuk Menambahkan Category hanya admin yang bisa
     Route::resource('/dashboard/categories', DashboardCategoryController::class)->except('show');
-    Route::get('/dashboard/categories/checkSlug', [DashboardCategoryController::class, 'checkSlug']);
+    Route::get('/dashboard/categories/categorySlug', [DashboardCategoryController::class, 'categorySlug']);
+
+    Route::resource('/dashboard/profile', DashboardCProfileController::class);
+    Route::get('/profile/{username}', [DashboardCProfileController::class, 'showByUsername'])->name('dashboard.profile.showByUsername');
+    Route::post('/password', [DashboardCProfileController::class, 'password_action'])->name('password.action');
 });
 
 // Group Middleware "admin"
@@ -114,10 +97,30 @@ Route::middleware(['admin'])->group(function () {
 });
 
 Route::post('/comments/{postId}', [CommentController::class, 'store'])->name('comments.store');
-// Route::delete('/comments/{commentId}', [CommentController::class, 'destroy'])->name('comments.destroy');
-// Route::get('/comments/{commentId}', [ReplyController::class, 'delete'])->name('comment.delete');
 Route::get('/comments/{commentId}', [CommentController::class, 'delete'])->name('comment.delete');
 
 Route::post('/replies/{commentId}', [ReplyController::class, 'store'])->name('replies.store')->middleware('auth');
 Route::get('/delete_reply/{replyId}', [ReplyController::class, 'delete'])->name('replies.delete');
 
+// Halaman Index
+// Route::get('/', function () {
+//     return view('home.index', [
+//         "title" => "Home",
+//         "active" => "home",
+//     ]);
+// });
+
+// Halaman Dashboard Admin
+// Route::get('/dashboard', function () {
+//     return view('dashboard.index');
+// })->middleware('auth');
+// Route::get('/dashboard/categories/checkSlug', [DashboardPostController::class, 'checkSlugCategory'])->middleware('auth');
+
+// Halaman Untuk Menambahkan Postingan
+// Route::resource('/dashboard', DashboardDashboardController::class)->middleware('auth');
+// Route::get('/dashboard/posts/checkSlug', [DashboardDashboardPostController::class, 'checkSlug'])->middleware('auth');
+// Route::resource('/dashboard/posts', DashboardDashboardPostController::class)->middleware('auth');
+
+// // Halaman Untuk Menambahkan Category hanya admin yang bisa
+// Route::resource('/dashboard/categories', DashboardCategoryController::class)->except('show')->middleware('admin');
+// Route::get('/dashboard/categories/checkSlug', [DashboardCategoryController::class, 'checkSlug'])->middleware('auth');

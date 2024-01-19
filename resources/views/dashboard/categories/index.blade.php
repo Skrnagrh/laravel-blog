@@ -81,7 +81,7 @@
         const slug = document.querySelector('#slug');
 
         title.addEventListener('change', function(){
-            fetch('/dashboard/categories/checkSlug?name=' + title.value)
+            fetch('/dashboard/categories/categorySlug?name=' + title.value)
             .then(response => response.json())
             .then(data => slug.value = data.slug)
         });

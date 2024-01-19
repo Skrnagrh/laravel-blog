@@ -67,6 +67,11 @@
                         <i class="bi bi-circle"></i><span>Postingan</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/dashboard/comment">
+                        <i class="bi bi-circle"></i><span>Komentar</span>
+                    </a>
+                </li>
                 @can('admin')
                 <li>
                     <a href="/dashboard/categories">

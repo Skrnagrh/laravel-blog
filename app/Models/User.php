@@ -3,16 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Post;
+use App\Models\Profile;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
-    /** 
+    /**
     * The attributes that are mass assignable.
     *
     *@var array
@@ -26,7 +28,7 @@ class User extends Authenticatable
 
     protected $guarded = ['id'];
 
-    /** 
+    /**
     * The attributes that are mass assignable.
     *
     *@var array
@@ -36,7 +38,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /** 
+    /**
     * The attributes that are mass assignable.
     *
     *@var array
@@ -49,4 +51,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
 }

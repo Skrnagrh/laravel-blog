@@ -149,6 +149,17 @@
                         </div>
                         @enderror
                     </div>
+                    {{-- <div class="col-md-8 col-lg-9">
+                        <img src="/assets/dashboard/img/profile-img.jpg" id="previewImage" class="col-sm-7">
+                        <div class="pt-2">
+                            <input type="file" name="image" id="profileImage" style="display: none;" accept="image/*">
+                            <label for="profileImage" class="btn btn-primary btn-sm" title="Upload new profile image">
+                                <i class="bi bi-upload text-white"></i> </label>
+                            <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"
+                                id="removeProfileImage">
+                                <i class="bi bi-trash"></i> </a>
+                        </div>
+                    </div> --}}
                     <div class="mb-3">
                         <label for="body" class="form-label">Body</label>
                         @error('body')

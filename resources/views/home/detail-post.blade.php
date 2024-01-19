@@ -153,11 +153,10 @@
                                             <button type="submit" id="submitButton{{ $comment->id }}"
                                                 class="form-control btn btn-primary"
                                                 style="display: none; margin-right: 5px">Submit</button>
-                                            <button class="form-control btn btn-secondary"
-                                                onclick="cancelReplyForm({{ $comment->id }}, event)">Cancel</button>
-
-                                        </div>
-                                    </form>
+                                                <a class="form-control btn btn-secondary"
+                                                    onclick="cancelReplyForm({{ $comment->id }})">Cancel</a>
+                                            </div>
+                                        </form>
                                 </div>
 
                             </div>
@@ -441,18 +440,47 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var textarea = document.getElementById('commentTextarea');
-        var submitButton = document.getElementById('submitButton');
 
-        textarea.addEventListener('input', function () {
-            submitButton.style.display = textarea.value.trim() !== '' ? 'block' : 'none';
-        });
-    });
-</script>
+{{-- <script>
+    function toggleReplyForm(commentId) {
+        var replyForm = document.getElementById('replyForm' + commentId);
+        var submitButton = document.getElementById('submitButton' + commentId);
+        replyForm.style.display = 'block';
+        submitButton.style.display = 'none';
+    }
 
-<script>
+    function toggleSubmitButton(commentId) {
+        var textarea = document.getElementById('replyTextarea' + commentId);
+        var submitButton = document.getElementById('submitButton' + commentId);
+        submitButton.style.display = textarea.value.trim() !== '' ? 'block' : 'none';
+    }
+
+    function submitReplyForm(event, commentId) {
+        event.preventDefault();
+        // Add your logic to submit the form using AJAX if needed
+        // Example: use fetch or jQuery.ajax to send the form data to the server
+
+        var replyForm = document.getElementById('replyForm' + commentId);
+        var submitButton = document.getElementById('submitButton' + commentId);
+        var textarea = document.getElementById('replyTextarea' + commentId);
+
+        replyForm.style.display = 'none';
+        submitButton.style.display = 'none';
+        textarea.value = '';
+    }
+
+    function cancelReplyForm(commentId) {
+        var replyForm = document.getElementById('replyForm' + commentId);
+        var submitButton = document.getElementById('submitButton' + commentId);
+        var textarea = document.getElementById('replyTextarea' + commentId);
+
+        replyForm.style.display = 'none';
+        submitButton.style.display = 'none';
+        textarea.value = '';
+    }
+</script> --}}
+
+{{-- <script>
     function toggleReplyForm(commentId) {
         var replyForm = document.getElementById('replyForm' + commentId);
         var submitButton = document.getElementById('submitButton' + commentId);
@@ -478,6 +506,55 @@
 
         textarea.value = '';
     }
-</script>
+</script> --}}
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var textarea = document.getElementById('commentTextarea');
+        var submitButton = document.getElementById('submitButton');
 
+        textarea.addEventListener('input', function () {
+            submitButton.style.display = textarea.value.trim() !== '' ? 'block' : 'none';
+        });
+    });
+</script> --}}
+
+<script>
+    function toggleReplyForm(commentId) {
+        var replyForm = document.getElementById('replyForm' + commentId);
+        var submitButton = document.getElementById('submitButton' + commentId);
+        replyForm.style.display = 'block';
+        submitButton.style.display = 'none';
+    }
+
+    function toggleSubmitButton(commentId) {
+        var textarea = document.getElementById('replyTextarea' + commentId);
+        var submitButton = document.getElementById('submitButton' + commentId);
+        submitButton.style.display = textarea.value.trim() !== '' ? 'block' : 'none';
+    }
+
+    // function submitReplyForm(event, commentId) {
+    //     event.preventDefault();
+    //     // Add your logic to submit the form using AJAX if needed
+    //     // Example: use fetch or jQuery.ajax to send the form data to the server
+
+    //     var replyForm = document.getElementById('replyForm' + commentId);
+    //     var submitButton = document.getElementById('submitButton' + commentId);
+    //     var textarea = document.getElementById('replyTextarea' + commentId);
+
+    //     replyForm.style.display = 'none';
+    //     submitButton.style.display = 'none';
+    //     textarea.value = '';
+    // }
+
+    function cancelReplyForm(commentId) {
+        var replyForm = document.getElementById('replyForm' + commentId);
+        var submitButton = document.getElementById('submitButton' + commentId);
+        var textarea = document.getElementById('replyTextarea' + commentId);
+
+        replyForm.style.display = 'none';
+        submitButton.style.display = 'none';
+        textarea.value = '';
+    }
+
+</script>
 @endsection

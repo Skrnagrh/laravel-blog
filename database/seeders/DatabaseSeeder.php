@@ -11,6 +11,7 @@ use Database\Seeders\PostsSeeder;
 use Database\Seeders\UsersSeeder;
 use Database\Seeders\RepliesSeeder;
 use Database\Seeders\CommentsSeeder;
+use Database\Seeders\ProfilesSeeder;
 use Database\Seeders\CategoriesSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             PostsSeeder::class,
             CommentsSeeder::class,
             RepliesSeeder::class,
+            ProfilesSeeder::class,
         ]);
 
         // \App\Models\User::factory()->create([
