@@ -105,8 +105,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 text-center mb-3 mb-md-0">
-                <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site
-                        Name</a>,
+                <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Si Blog</a>,
                     <?= Date('Y'); ?> All right reserved.
                 </span>
             </div>

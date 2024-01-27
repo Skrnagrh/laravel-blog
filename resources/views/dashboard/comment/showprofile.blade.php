@@ -79,8 +79,4 @@
     </div>
 </section>
 
-{{-- <div>
-    <h1>{{ $profile->name }}'s Profile</h1>
-    <p>Email: {{ $profile->email }}</p>
-</div> --}}
 @endsection

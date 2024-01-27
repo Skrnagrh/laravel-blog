@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V18</title>
+	<title>Login - Si Blog</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="/assets/auth/images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="/assets/logo/logo2.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/assets/auth/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -27,7 +27,7 @@
 	<link rel="stylesheet" type="text/css" href="/assets/auth/css/main.css">
 <!--===============================================================================================-->
 </head>
-<body style="background-color: #666666;">
+<body style="background-color: #ffffff;">
 
 	@yield('content')
 

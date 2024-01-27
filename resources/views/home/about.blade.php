@@ -1,5 +1,7 @@
 @extends('home.layouts.main')
 
+@section('title')About @endsection
+
 @section('content')
 
 

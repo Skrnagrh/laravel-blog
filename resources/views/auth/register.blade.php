@@ -7,7 +7,7 @@
             <form class="login100-form validate-form" action="/register" method="post">
                 @csrf
                 <span class="login100-form-title p-b-43">
-                    Register to continue
+                    Register
                 </span>
 
                 <div class="wrap-input100 validate-input @error('name')is-invalid @enderror" data-validate="Valid email is required: ex@abc.xyz">
@@ -54,7 +54,7 @@
                     @enderror
                 </div>
 
-                <div class="flex-sb-m w-full p-t-3 p-b-32">
+                {{-- <div class="flex-sb-m w-full p-t-3 p-b-32">
                     <div class="contact100-form-checkbox">
                         <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
                         <label class="label-checkbox100" for="ckb1">
@@ -67,7 +67,7 @@
                             Forgot Password?
                         </a>
                     </div>
-                </div>
+                </div> --}}
 
 
                 <div class="container-login100-form-btn">
@@ -101,7 +101,7 @@
                 </div>
             </form>
 
-            <div class="login100-more" style="background-image: url('/assets/auth/images/bg-01.jpg');">
+            <div class="login100-more" style="background-image: url('/assets/logo/logo3.png');">
             </div>
         </div>
     </div>

@@ -1,5 +1,7 @@
 @extends('home.layouts.main')
 
+@section('title')Beranda @endsection
+
 @section('content')
 
 
@@ -252,8 +254,7 @@
                                         <small class="text-muted">By. <a
                                                 href="/kategori?author={{ $post->author->username }} "
                                                 class="text-decoration-none">{{ $post->author->name }}</a>
-                                                in <a
-                                                href="/kategori?category={{ $post->category->slug }}"
+                                            in <a href="/kategori?category={{ $post->category->slug }}"
                                                 class="text-decoration-none">{{
                                                 $post->category->name }}</a>
                                         </small>

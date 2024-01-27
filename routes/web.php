@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\DashboardAllpostController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardCProfileController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Auth\RegisterController as AuthRegisterController;
 use App\Http\Controllers\Dashboard\DashboardController as DashboardDashboardController;
 use App\Http\Controllers\Dashboard\DashboardPostController as DashboardDashboardPostController;
 /*
@@ -65,8 +66,8 @@ Route::post('/login', [AuthLoginController::class, 'authenticate']);
 Route::post('/logout', [AuthLoginController::class, 'logout']);
 
 // Register
-Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [AuthRegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [AuthRegisterController::class, 'store']);
 
 // Group Middleware "auth"
 Route::middleware(['auth'])->group(function () {

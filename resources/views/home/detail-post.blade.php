@@ -1,5 +1,8 @@
 @extends('home.layouts.main')
 
+@section('title'){{ Str::words($post->title, 2, '...') }} @endsection
+
+
 @section('content')
 
 <div class="container-fluid py-5">

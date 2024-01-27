@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Newsers - Free HTML Magazine Template</title>
+    <title>@yield('title') - Si Blog</title>
+    <link rel="icon" type="image/png" href="/assets/logo/logo2.png"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -52,7 +53,7 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary border-2 border-white rounded-circle back-to-top"><i
+    <a href="#" class="btn btn-outline-primary border-2 rounded-circle back-to-top"><i
             class="fa fa-arrow-up"></i></a>
 
 
