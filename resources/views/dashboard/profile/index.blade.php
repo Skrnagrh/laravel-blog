@@ -11,9 +11,9 @@
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                     @if ($profile->profile_image)
-                    <img src="{{ asset('storage/' . $profile->profile_image) }}" class="rounded-circle">
+                    <img src="{{ asset('storage/profile_images/' . $profile->profile_image) }}" class="rounded-circle">
                     @else
-                    <img src="/assets/dashboard/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="/assets/dashboard/img/not-profile.png" alt="Profile" class="rounded-circle">
                     @endif
                     <h2>{{ $profile->name }}</h2>
                     <h3>{{ $profile->job }}</h3>
@@ -76,10 +76,39 @@
 
         </div>
     </div>
-
-    @else
-    <p>Profil tidak ditemukan untuk pengguna ini.</p>
     @endif
+
+    <hr>
+    <div class="row">
+        @if($posts->count() > 0)
+        @foreach ($posts as $post)
+        <div class="col-md-4" id="postingan-overview">
+            <a href="/dashboard/all-post/{{ $post->slug }}">
+                <div class="card">
+                    @if ($post->image)
+                    <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top">
+                    @else
+                    <img src="/assets/not-image-post.png" class="card-img-top">
+                    @endif
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $post->title }}</h5>
+                        <small class="text-muted text-light">By. <a
+                                href="{{ route('dashboard.author.index', ['username' => $post->author->username]) }}"
+                                class="text-decoration-none">{{ $post->author->name }}</a> in <a
+                                href="/dashboard/category?={{ $post->category->slug }}" class="text-decoration-none">{{
+                                $post->category->name }}</a>
+                            {{ $post->created_at->diffForHumans() }}</small>
+                        <p class="card-text text-dark">{{ Str::words($post->excerpt, 5, '...') }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @endforeach
+        @else
+        <p>Belum ada postingan.</p>
+        @endif
+    </div>
 </section>
 
 

@@ -1,5 +1,4 @@
-<form method="post" action="/dashboard/profile/{{ $profile->id }}" class="mb-5"
-    enctype="multipart/form-data">
+<form method="post" action="/dashboard/profile/{{ $profile->id }}" class="mb-5" enctype="multipart/form-data">
     @method('put')
     @csrf
     <div class="row mb-3">
@@ -7,18 +6,16 @@
             Image</label>
         <div class="col-md-8 col-lg-9">
             @if ($profile->profile_image)
-            <img src="{{ asset('storage/' . $profile->profile_image) }}" id="previewImage">
+            <img src="{{ asset('storage/profile_images/' . $profile->profile_image) }}" id="previewImage"
+                class="rounded-circle">
             @else
-            <img src="/assets/dashboard/img/profile-img.jpg" id="previewImage">
+            <img src="/assets/dashboard/img/not-profile.png" id="previewImage" class="rounded-circle">
             @endif
             <div class="pt-2">
-                <input type="file" name="profile_image" id="profileImage"
-                    style="display: none;" accept="image/*">
-                <label for="profileImage" class="btn btn-primary btn-sm"
-                    title="Upload new profile image">
+                <input type="file" name="profile_image" id="profileImage" style="display: none;" accept="image/*">
+                <label for="profileImage" class="btn btn-primary btn-sm" title="Upload new profile image">
                     <i class="bi bi-upload text-white"></i> </label>
-                <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"
-                    id="removeProfileImage">
+                <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image" id="removeProfileImage">
                     <i class="bi bi-trash"></i> </a>
             </div>
         </div>
@@ -27,8 +24,7 @@
     <div class="row mb-3">
         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nama Lengkap</label>
         <div class="col-md-8 col-lg-9">
-            <input name="name" type="text" class="form-control" id="name"
-                value="{{ old('name', $profile->name) }}">
+            <input name="name" type="text" class="form-control" id="name" value="{{ old('name', $profile->name) }}">
         </div>
     </div>
 
@@ -51,8 +47,7 @@
     <div class="row mb-3">
         <label for="Job" class="col-md-4 col-lg-3 col-form-label">Pekerjaan</label>
         <div class="col-md-8 col-lg-9">
-            <input name="job" type="text" class="form-control" id="Job"
-                value="{{ old('job', $profile->job) }}">
+            <input name="job" type="text" class="form-control" id="Job" value="{{ old('job', $profile->job) }}">
         </div>
     </div>
 
@@ -75,8 +70,7 @@
     <div class="row mb-3">
         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">No. Handphone</label>
         <div class="col-md-8 col-lg-9">
-            <input name="phone" type="text" class="form-control" id="Phone"
-                value="{{ old('phone', $profile->phone) }}">
+            <input name="phone" type="text" class="form-control" id="Phone" value="{{ old('phone', $profile->phone) }}">
         </div>
     </div>
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ReplyController;
 use App\Http\Controllers\Home\CommentController;
 use App\Http\Controllers\Home\CategoryController;
+use App\Http\Controllers\DashboardAuthorController;
 use App\Http\Controllers\Dashboard\CommentPostController;
 use App\Http\Controllers\Dashboard\DashboardPostController;
 use App\Http\Controllers\Dashboard\DashboardAllpostController;
@@ -95,6 +96,8 @@ Route::middleware(['admin'])->group(function () {
     // Route::resource('/dashboard/all-post', DashboardAllpostController::class)->except('create', 'edit', 'delete');
     Route::get('/dashboard/all-post', [DashboardAllpostController::class, 'index']);
     Route::get('/dashboard/all-post/{post:slug}', [DashboardAllpostController::class, 'show']);
+    // Route::get('/dashboard/author', [DashboardAuthorController::class, 'showProfile']);
+    Route::get('/dashboard/author/{username}', [DashboardAuthorController::class, 'showProfile'])->name('dashboard.author.index');
 });
 
 Route::post('/comments/{postId}', [CommentController::class, 'store'])->name('comments.store');

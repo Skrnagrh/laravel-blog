@@ -8,78 +8,111 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Storage;
 class DashboardCProfileController extends Controller
 {
+    // public function index()
+    // {
+    //     // Mendapatkan pengguna yang sedang login
+    //     $user = auth()->user();
+
+    //     // Mendapatkan profil yang sesuai dengan user_id pengguna yang sedang login
+    //     $profile = User::where('user_id', $user->id)->first();
+
+    //     return view('dashboard.profile.index', [
+    //         'profile' => $profile,
+    //     ]);
+    // }
     public function index()
     {
-        // Mendapatkan pengguna yang sedang login
         $user = auth()->user();
-
-        // Mendapatkan profil yang sesuai dengan user_id pengguna yang sedang login
-        $profile = Profile::where('user_id', $user->id)->first();
-
+        $posts = $user->posts;
         return view('dashboard.profile.index', [
-            'profile' => $profile,
+            'profile' => $user,
+            'posts' => $posts,
         ]);
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string',
-                'about' => 'nullable|string',
-                'company' => 'nullable|string',
-                'job' => 'nullable|string',
-                'country' => 'nullable|string',
-                'address' => 'nullable|string',
-                'phone' => 'nullable|string',
-                'email' => 'nullable|email',
-                'twitter' => 'nullable|string',
-                'facebook' => 'nullable|string',
-                'instagram' => 'nullable|string',
-                'linkedin' => 'nullable|string',
+
+public function update(Request $request, $id)
+{
+
+    $request->validate([
+        'name' => 'required|string',
+        'email' => 'nullable|email',
+        'about' => 'nullable|string',
+        'company' => 'nullable|string',
+        'job' => 'nullable|string',
+        'country' => 'nullable|string',
+        'address' => 'nullable|string',
+        'phone' => 'nullable|string',
+        'twitter' => 'nullable|string',
+        'facebook' => 'nullable|string',
+        'instagram' => 'nullable|string',
+        'linkedin' => 'nullable|string',
+    ]);
+
+    $user = User::findOrFail($id);
+
+    if (request()->hasFile('profile_image')) {
+        if ($user->profile_image && file_exists(storage_path('app/public/profile_images/' . $user->profile_image))) {
+            Storage::delete('app/public/profile_images/' . $user->profile_image);
+        }
+
+        $file = $request->file('profile_image');
+        $fileName = $file->hashName() . '.' . $file->getClientOriginalExtension();
+        $request->profile_image->move(storage_path('app/public/profile_images'), $fileName);
+        $user->profile_image = $fileName;
+    }
+
+    if (!is_null($request->password)) {
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'about' => $request->about,
+            'company' => $request->company,
+            'job' => $request->job,
+            'country' => $request->country,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'twitter' => $request->twitter,
+            'facebook' => $request->facebook,
+            'instagram' => $request->instagram,
+            'linkedin' => $request->linkedin,
+            'password' => Hash::make($request->password),
         ]);
-
-        $profile = Profile::findOrFail($id);
-
-        if ($profile->user_id !== auth()->id()) {
-            return redirect()->route('profile.index')->with('error', 'You are not authorized to update this profile.');
-        }
-
-        $profile->update($request->all());
-
-        $user = auth()->user();
-        // if ($user->name !== $request->input('name')) {
-        //     $user->update(['name' => $request->input('name')]);
-        // }
-        $dataToUpdate = [];
-
-        if ($user->name !== $request->input('name')) {
-            $dataToUpdate['name'] = $request->input('name');
-        }
-
-        if ($user->email !== $request->input('email')) {
-            $dataToUpdate['email'] = $request->input('email');
-        }
-
-        if (!empty($dataToUpdate)) {
-            $user->update($dataToUpdate);
-        }
-
-    if ($request->hasFile('profile_image')) {
-        // Simpan gambar profil baru ke penyimpanan (storage)
-        $imagePath = $request->file('profile_image')->store('profile_images', 'public');
-
-        // Perbarui kolom 'profile_image' dalam tabel profil dengan path yang baru
-        $profile->update(['profile_image' => $imagePath]);
-
-        // Perbarui kolom 'profile_image' dalam tabel pengguna (user) dengan path yang baru
-        $user->update(['profile_image' => $imagePath]);
+    } else {
+        $user->update([
+            'name' => $request->name,
+            'about' => $request->about,
+            'email' => $request->email,
+            'company' => $request->company,
+            'job' => $request->job,
+            'country' => $request->country,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'twitter' => $request->twitter,
+            'facebook' => $request->facebook,
+            'instagram' => $request->instagram,
+            'linkedin' => $request->linkedin,
+        ]);
     }
 
-        return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
+    if ($user) {
+        return redirect()
+            ->route('profile.index')
+            ->with([
+                'success' => 'Data anda berhasil diubah'
+            ]);
+    } else {
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with([
+                'error' => 'Data anda gagal diubah'
+            ]);
     }
+}
 
 
     public function password_action(Request $request)

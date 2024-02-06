@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             PostsSeeder::class,
             CommentsSeeder::class,
             RepliesSeeder::class,
-            ProfilesSeeder::class,
+            // ProfilesSeeder::class,
         ]);
 
         // \App\Models\User::factory()->create([

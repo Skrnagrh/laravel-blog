@@ -21,6 +21,18 @@ class UsersSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
+
+            'about' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            'company' => 'PT. Andromind',
+            'job' => 'Web Developer',
+            'country' => 'Indonesia',
+            'address' => 'Jalan 123 AMD',
+            'phone' => '+62 123-456-7890',
+            'email' => 'skrnagrh@gmail.com',
+            'twitter' => 'skrnagrh',
+            'facebook' => 'skrnagrh',
+            'instagram' => 'skrnagrh',
+            'linkedin' => 'sukron',
             'is_admin' => 1
         ]);
 
@@ -28,7 +40,7 @@ class UsersSeeder extends Seeder
             User::create([
                 'name' => 'User ' . $i,
                 'username' => 'user' . $i,
-                'email' => 'user' . $i . '@example.com',
+                'email' => 'user' . $i . '@gmail.com',
                 'password' => bcrypt('password')
             ]);
         }
